@@ -1,4 +1,4 @@
-Copyright © 2025 Reactor645. All rights reserved.
+Copyright © 2025 Reactor Interactive. All rights reserved.
 
 This software, including all source code, design, and assets used in ReCAD, 
 may not be copied, distributed, or used for commercial purposes without 
