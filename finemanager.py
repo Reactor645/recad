@@ -36,6 +36,6 @@ def finemanager ():
         file.write(amount_fined)
         print("Creating fine, please wait...")
 
-    os.rename("Fines/bestand.txt", "Fines/Fine.txt")
+    os.rename("Fines/bestand.txt", "Fines/fine" + fined_person + ".txt")
 
     done = 1

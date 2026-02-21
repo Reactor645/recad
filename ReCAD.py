@@ -3,6 +3,8 @@ from time import sleep
 import os
 import subprocess
 import sys
+import winsound
+import background
 
 # --- IMPORTS VOOR ANDERE MODULES (Zorg dat deze bestanden bestaan) ---
 # PyInstaller zal deze automatisch bundelen
@@ -10,6 +12,9 @@ from ArrestReport import arrestreport
 import dispatch
 import ArrestReport
 import finemanager
+import OpenWarrant
+from sounds import *
+import keyboard
 
 # --- VARIABELEN ---
 passedtime = 0
@@ -19,6 +24,9 @@ overtime = 0
 stopdispatch = 0
 callsign = None  # Initializeer callsign globaal
 shifttime = 0
+
+
+
 
 ReCAD_art = """
   _____       _____          _____  
@@ -34,11 +42,12 @@ ReCAD_art = """
 # =========================================================================
 # === STARTPUNT FILTER (ESSENTIEEL VOOR SUBPROCESS IN DE .EXE BUNDEL) ===
 # =========================================================================
-
+os.system('cls' if os.name == 'nt' else 'clear')
 print(ReCAD_art)
+print("Created by Reactor Interactive")
 sleep(3)
 os.system('cls' if os.name == 'nt' else 'clear')
-print("Copyright © 2025 reactor645. All rights reserved.")
+print("Copyright © 2026 Reactor Interactive. All rights reserved.")
 sleep(2)
 os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -82,25 +91,28 @@ def start_dispatch_process():
 
 # --- HOOFDLOGICA VAN HET CAD SYSTEEM ---
 
+
+
 print("Connecting to RCPD servers, please wait...")
 
 # Maak de ArrestReports map aan
 os.makedirs("ArrestReports", exist_ok=True)
 
+
 sleep(3)
 print("Welcome to ReCAD")
 callsign = input("Please enter a callsign: ")
 sleep(1)
-print("We currently support: ERLC and PSPO")
+print("We currently support: ERLC, PSPO and EH")
 game = input("What game do you want the CAD for?: ")
 
 print("dayshift = DAY")
 print("nightshift = NIGHT")
 day_or_night_shift = input("Are you working day or night shifts?: ")
 
-if day_or_night_shift.upper() == "DAY" and game.upper() == "ERLC":
+if day_or_night_shift.upper() == "DAY" and game.upper() == "ERLC" or game.upper() == "EH":
     print("Your shift starts at 08:00 and ends at 20:00")
-elif day_or_night_shift.upper() == "NIGHT" and game.upper() == "ERLC":
+elif day_or_night_shift.upper() == "NIGHT" and game.upper() == "ERLC" or game.upper() == "EH":
     print("Your shift starts at 20:00 and ends at 08:00")
 elif day_or_night_shift.upper() == "DAY" and game.upper() == "PSPO":
     shifttime = int(input("Please enter shifttime in minutes: "))
@@ -113,9 +125,9 @@ elif day_or_night_shift.upper() == "NIGHT" and game.upper() == "PSPO":
     shifttime = shifttime * 60
     shifttime = str(shifttime)
     print("Your shift is " + shifttime + " seconds long")
-    shiftime = int(shifttime)
+    shifttime = int(shifttime)
 
-    shiftactive = 1
+
 else:
     print("Invalid value")
 
@@ -130,11 +142,13 @@ if shiftstart == "ShiftStart":
 
     start_dispatch_process()
     sleep(1)
-
+    axon_beep_layered()
 
     shiftactive = 1
+    print(shiftactive) #remove
     starttimer = 1
     print("Shift active! Tracking time...")
+
 
     # --- SHIFT LOOP ---
     while shiftactive == 1:
@@ -152,6 +166,7 @@ if shiftstart == "ShiftStart":
 
                 if ready_to_end_shift.upper() == "Y":
                     print("Shift has ended successfully.")
+                    axon_end_shift()
                     passedtime = 0
                     starttimer = 0
                     shiftactive = 0  # dispatch stopt ook

@@ -53,6 +53,6 @@ def arrestreport():
 
 
 
-    os.rename("ArrestReports/bestand.txt", "ArrestReports/ArrestReport.txt")
+    os.rename("ArrestReports/bestand.txt", "ArrestReports/ArrestReport" + arresteename + ".txt")
 
     done = 1

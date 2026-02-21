@@ -1,4 +1,4 @@
-Copyright © 2025 Reactor Interactive. All rights reserved.
+Copyright © 2026 Reactor Interactive. All rights reserved.
 
 This software, including all source code, design, and assets used in ReCAD, 
 may not be copied, distributed, or used for commercial purposes without 
@@ -7,4 +7,4 @@ the express written permission of the copyright holder.
 Personal use is allowed, but redistribution or commercial exploitation 
 is strictly prohibited without authorization.
 
-For inquiries regarding licensing, please contact: reactor645zakelijk@gmail.com or go to the official ReCAD site at: 
+For inquiries regarding licensing, please contact: reactor645zakelijk@gmail.com or go to the official ReCAD site at: https://recadofficial.netlify.app
